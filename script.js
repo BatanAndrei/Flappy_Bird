@@ -29,6 +29,13 @@ const render = () => {
     height: canvas.height,
   };
 
+  const bgPartTwoResult = {
+    x: backgroudX,
+    y:0,
+    width: canvas.width,
+    height: canvas.height,
+  }
+
   ctx.drawImage(
     img,
 
@@ -41,6 +48,20 @@ const render = () => {
     bgPartOneResult.y,
     bgPartOneResult.width,
     bgPartOneResult.height
+  );
+
+  ctx.drawImage(
+    img,
+
+    bgSource.x,
+    bgSource.y,
+    bgSource.width,
+    bgSource.height,
+
+    bgPartTwoResult.x,
+    bgPartTwoResult.y,
+    bgPartTwoResult.width,
+    bgPartTwoResult.height
   );
   
   window.requestAnimationFrame(render);
