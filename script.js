@@ -8,13 +8,15 @@ img.src = imgURL;
 
 const SPEED = 3.1;
 
+const SIZE = [51, 36];
+
 let index = 0;
 
 const render = () => {
   index += 0.3;
   
   const backgroudX = -((index * SPEED) % canvas.width);
-
+  
   const bgSource = {
     x: 0,
     y: 0,
@@ -28,14 +30,14 @@ const render = () => {
     width: canvas.width,
     height: canvas.height,
   };
-
+  
   const bgPartTwoResult = {
     x: backgroudX,
     y:0,
     width: canvas.width,
     height: canvas.height,
   }
-
+  
   ctx.drawImage(
     img,
 
@@ -63,7 +65,35 @@ const render = () => {
     bgPartTwoResult.width,
     bgPartTwoResult.height
   );
+
+  const birdSource = {
+    x: 432,
+    y: Math.floor((index % 9) / 3) * SIZE[1],
+    width: SIZE[0],
+    height: SIZE[1],
+  };
+
+  const birdResult = {
+    x: canvas.width / 2 - SIZE[0] / 2,
+    y: 200,
+    width: SIZE[0],
+    height: SIZE[1],
+  };
   
+  ctx.drawImage(
+    img,
+
+    birdSource.x,
+    birdSource.y,
+    birdSource.width,
+    birdSource.height,
+
+    birdResult.x,
+    birdResult.y,
+    birdResult.width,
+    birdResult.height
+  );
+
   window.requestAnimationFrame(render);
 };
 img.onload = render;
