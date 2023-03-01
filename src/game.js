@@ -83,13 +83,11 @@
 
 
 
-// Начало работы с игрой - код с классом ES6 закоментирован и не работает ниже код раскоментрован и работает
-
-
+// Начало работы с игрой - код с классом ES6
 
 class Game {
        
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX){
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i){
         this.canvas = canvas;
         this.ctx = ctx;
         this.bg = bg;
@@ -105,6 +103,10 @@ class Game {
         this.pipeUp = new Image();
         this.pipeBottom = new Image();
         this.backgroudX = backgroudX;
+        this.gap = gap;
+        this.pipe = [];
+        this.i = i;
+    
     }
 
 canvasGame() {
@@ -117,6 +119,11 @@ canvasGame() {
     this.fg.src = "assets/fg.png";
     this.pipeUp.src = "assets/pipeUp.png";
     this.pipeBottom.src = "assets/pipeBottom.png";
+
+    this.pipe[0] = {
+        x: this.canvas.width,
+        y: 0,
+    };
 };
 
 drawBack() {
@@ -131,28 +138,48 @@ drawBack() {
 }
 
 drawPipe() {
-    
+    this.gap = 80;
+
+    for( this.i = 0; this.i < this.pipe.length; this.i++) {
+        this.ctx.drawImage(this.pipeUp, this.pipe[this.i].x, this.pipe[this.i].y);
+        this.ctx.drawImage(this.pipeBottom, this.pipe[this.i].x, this.pipe[this.i].y + this.pipeUp.height + this.gap);
+       //this.ctx.drawImage(this.pipeUp, 125, 0);
+        //this.ctx.drawImage(this.pipeBottom, 125, + this.pipeUp.height + this.gap);
+          
+        this.pipe[this.i].x--;
+        
+        if(this.pipe[this.i].x == 125) {
+        this.pipe.push({
+        x : this.canvas.width,
+        y : Math.floor(Math.random() * this.pipeUp.height) - this.pipeUp.height
+        });
+      
+        }
+        console.log(this.pipe[this.i].x);
+        console.log(this.pipe[this.i].y);
+
+//window.requestAnimationFrame(this.drawPipe.bind(this));
+}
 }
 
 loadResources() {
     window.onload = (event) => {
-        this.drawGame();
+        this.drawBack();
+        this.drawPipe();
       };
  };
 
-//  updateGame() {
-    
-//  }
 }
 
 let game = new Game();
 game.canvasGame();
 game.drawBack();
+game.drawPipe();
 game.loadResources();
-//game.updateGame();
 
 
-//window.requestAnimationFrame(game.draw);
+
+
 
 
 
