@@ -81,6 +81,12 @@
 // }
 // }
 
+
+
+// Начало работы с игрой - код с классом ES6 закоментирован и не работает ниже код раскоментрован и работает
+
+
+
 // class Game {
        
 //     constructor(canvas, ctx, bg){
@@ -123,6 +129,10 @@
 // }
 
 // bg.onload = render;
+
+
+//рабочий код
+
 
 let cvs = document.getElementById("canvas");
 let ctx = cvs.getContext("2d");
