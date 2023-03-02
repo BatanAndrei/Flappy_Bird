@@ -150,16 +150,25 @@ drawPipe() {
         y : Math.floor(Math.random() * this.pipeUp.height) - this.pipeUp.height
         });
     }
-        console.log(this.pipe[this.i].x);
-        console.log(this.pipe[this.i].y);
 }
         window.requestAnimationFrame(this.drawPipe.bind(this));
+}
+
+drawGround() {
+     this.ctx.drawImage(this.fg, 0, this.canvas.height - this.fg.height);
+
+     window.requestAnimationFrame(this.drawGround.bind(this));
+}
+
+drawBird() {
+
 }
 
 loadResources() {
     window.onload = (event) => {
         this.drawBack();
         this.drawPipe();
+        this.drawGround();
       };
  };
 }
@@ -168,6 +177,8 @@ let game = new Game();
 game.canvasGame();
 game.drawBack();
 game.drawPipe();
+game.drawGround();
+game.drawBird();
 game.loadResources();
 
 
