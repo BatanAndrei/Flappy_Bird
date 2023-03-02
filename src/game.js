@@ -86,7 +86,7 @@
 // Начало работы с игрой - код с классом ES6
 
 class Game {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY){
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav){
         this.canvas = canvas;
         this.ctx = ctx;
         this.bg = bg;
@@ -105,6 +105,7 @@ class Game {
         this.sizeBird = sizeBird;
         this.posX = posX;
         this.posY = posY;
+        this.grav = grav;
     }
 
 canvasGame() {
@@ -134,6 +135,7 @@ canvasGame() {
     this.sizeBird = [34, 26];
     this.posX = 10;
     this.posY = 150;
+    this.grav = 1.5;
 };
 
 drawBack() {
@@ -200,6 +202,8 @@ drawBird() {
             this.birdResult.width,
             this.birdResult.height
           );
+       
+          //this.posY += this.grav;
           window.requestAnimationFrame(this.drawBird.bind(this));
 }
 
@@ -211,6 +215,14 @@ loadResources() {
         this.drawBird();
       };
  };
+
+ control() {
+    window.addEventListener('click', moveUp);
+
+    function moveUp() {
+        game.posY -=25;   
+    }
+ }
 }
 
 let game = new Game();
@@ -220,6 +232,7 @@ game.canvasGame();
 //game.drawGround();
 //game.drawBird();
 game.loadResources();
+game.control();
 
 
 
