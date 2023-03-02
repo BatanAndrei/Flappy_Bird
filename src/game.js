@@ -86,7 +86,6 @@
 // Начало работы с игрой - код с классом ES6
 
 class Game {
-       
     constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i){
         this.canvas = canvas;
         this.ctx = ctx;
@@ -110,7 +109,6 @@ class Game {
     }
 
 canvasGame() {
-
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
 
@@ -143,23 +141,19 @@ drawPipe() {
     for( this.i = 0; this.i < this.pipe.length; this.i++) {
         this.ctx.drawImage(this.pipeUp, this.pipe[this.i].x, this.pipe[this.i].y);
         this.ctx.drawImage(this.pipeBottom, this.pipe[this.i].x, this.pipe[this.i].y + this.pipeUp.height + this.gap);
-       //this.ctx.drawImage(this.pipeUp, 125, 0);
-        //this.ctx.drawImage(this.pipeBottom, 125, + this.pipeUp.height + this.gap);
           
         this.pipe[this.i].x--;
         
-        if(this.pipe[this.i].x == 125) {
+        if(this.pipe[this.i].x == 100) {
         this.pipe.push({
         x : this.canvas.width,
         y : Math.floor(Math.random() * this.pipeUp.height) - this.pipeUp.height
         });
-      
-        }
+    }
         console.log(this.pipe[this.i].x);
         console.log(this.pipe[this.i].y);
-
-//window.requestAnimationFrame(this.drawPipe.bind(this));
 }
+        window.requestAnimationFrame(this.drawPipe.bind(this));
 }
 
 loadResources() {
@@ -168,7 +162,6 @@ loadResources() {
         this.drawPipe();
       };
  };
-
 }
 
 let game = new Game();
