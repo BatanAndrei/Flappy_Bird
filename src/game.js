@@ -96,26 +96,29 @@ class Game {
         this.pipeBottom = pipeBottom;
         this.speedBackGround = 3.1;
         this.index = 0;
-        this.bird = new Image();
-        this.bg = new Image();
-        this.fg = new Image();
-        this.pipeUp = new Image();
-        this.pipeBottom = new Image();
         this.backgroudX = backgroudX;
         this.gap = gap;
         this.pipe = [];
         this.i = i;
-    
     }
 
 canvasGame() {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
 
+    this.bird = new Image();
     this.bird.src = "assets/bird.png";
+
+    this.bg = new Image();
     this.bg.src = "assets/bg.png";
+
+    this.fg = new Image();
     this.fg.src = "assets/fg.png";
+
+    this.pipeUp = new Image();
     this.pipeUp.src = "assets/pipeUp.png";
+
+    this.pipeBottom = new Image();
     this.pipeBottom.src = "assets/pipeBottom.png";
 
     this.pipe[0] = {
