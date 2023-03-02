@@ -86,7 +86,7 @@
 // Начало работы с игрой - код с классом ES6
 
 class Game {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq, endGame, tableScore, buttonStart){
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq, endGame, tableScore, buttonStart, fly, score_audio, score){
         this.canvas = canvas;
         this.ctx = ctx;
         this.bg = bg;
@@ -111,6 +111,9 @@ class Game {
         this.endGame = endGame;
         this.tableScore = tableScore;
         this.buttonStart = buttonStart;
+        this.fly = fly;
+        this.score_audio = score_audio;
+        this.score = score;
     }
 
 canvasGame() {
@@ -141,11 +144,18 @@ canvasGame() {
     this.buttonStart = new Image();
     this.buttonStart.src = "assets/sprite.png";
 
+    this.fly = new Audio();
+    this.fly.src = "audio/fly.mp3";
+
+    this.score_audio = new Audio();
+    this.score_audio.src = "audio/score.mp3";
+
     this.pipe[0] = {
         x: this.canvas.width,
         y: 0,
     };
 
+    this.score = 0;
     this.sizeBird = [34, 26];
     this.posX = 100;
     this.posY = 150;
@@ -211,18 +221,8 @@ drawPipe() {
         });
     }
 
-    if(this.posX + this.sizeBird[0] >= this.pipe[this.i].x
-        && this.posX <= this.pipe[this.i].x + this.pipeUp.width
-        && (this.posY <= this.pipe[this.i].y + this.pipeUp.height
-        || this.posY + this.sizeBird[1] >= this.pipe[this.i].y + this.pipeUp.height + this.gap) || this.posY + this.sizeBird[1] >= this.canvas.height - this.fg.height) {
-        
-        this.gameOver();
-        this.tabScore();
-        this.butStart();
-        this.drawGround();
-       
-        window.cancelAnimationFrame(this.myReq.bind(this));
-        }
+        this.deadBird();
+        this.currentScore();
 }
 }
 
@@ -243,11 +243,34 @@ loadResources() {
     window.addEventListener('click', moveUp);
 
     function moveUp() {
-        game.posY -=30;   
+        game.posY -=40;  
+        game.fly.play();
     }
  }
 
- gameOver() {
+ currentScore() {
+    if(this.pipe[this.i].x == 5) {
+        this.score++;
+        this.score_audio.play();
+        }
+ }
+
+deadBird() {
+    if(this.posX + this.sizeBird[0] >= this.pipe[this.i].x
+        && this.posX <= this.pipe[this.i].x + this.pipeUp.width
+        && (this.posY <= this.pipe[this.i].y + this.pipeUp.height
+        || this.posY + this.sizeBird[1] >= this.pipe[this.i].y + this.pipeUp.height + this.gap) || this.posY + this.sizeBird[1] >= this.canvas.height - this.fg.height) {
+        
+        this.textGameOver();
+        this.tabScore();
+        this.butStart();
+        this.drawGround();
+       
+        window.cancelAnimationFrame(this.myReq.bind(this));
+        }
+}
+
+ textGameOver() {
     this.endGameSource = {
         x: 194,
         y: 229,
