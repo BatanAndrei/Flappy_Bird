@@ -129,6 +129,9 @@ canvasGame() {
     this.pipeBottom = new Image();
     this.pipeBottom.src = "assets/pipeBottom.png";
 
+    this.endGame = new Image();
+    this.endGame.src = "assets/sprite.png";
+
     this.pipe[0] = {
         x: this.canvas.width,
         y: 0,
@@ -233,7 +236,35 @@ loadResources() {
  }
 
  gameOver() {
+    //this.endGame
+
+    this.endGameSource = {
+        x: 194,
+        y: 229,
+        width: 184,
+        height: 34,
+      };
     
+this.endGameResult = {
+        x: 45,
+        y: 180,
+        width: 184,
+        height: 34,
+      };
+      
+      this.ctx.drawImage(
+        this.endGame,
+    
+        this.endGameSource.x,
+        this.endGameSource.y,
+        this.endGameSource.width,
+        this.endGameSource.height,
+    
+        this.endGameResult.x,
+        this.endGameResult.y,
+        this.endGameResult.width,
+        this.endGameResult.height
+      );
  }
 
  update() {
