@@ -86,7 +86,7 @@
 // Начало работы с игрой - код с классом ES6
 
 class Game {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq, endGame, tableScore, buttonStart, fly, score_audio, score){
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio){
         this.canvas = canvas;
         this.ctx = ctx;
         this.bg = bg;
@@ -114,6 +114,7 @@ class Game {
         this.fly = fly;
         this.score_audio = score_audio;
         this.score = score;
+        this.end_audio = end_audio;
     }
 
 canvasGame() {
@@ -149,6 +150,9 @@ canvasGame() {
 
     this.score_audio = new Audio();
     this.score_audio.src = "audio/score.mp3";
+
+    this.end_audio = new Audio();
+    this.end_audio.src = "audio/gameover.mp3";
 
     this.pipe[0] = {
         x: this.canvas.width,
@@ -224,7 +228,6 @@ drawPipe() {
         y : Math.floor(Math.random() * this.pipeUp.height) - this.pipeUp.height
         });
     }
-
         this.deadBird();
         this.currentScore();
 }
@@ -265,6 +268,7 @@ deadBird() {
         && (this.posY <= this.pipe[this.i].y + this.pipeUp.height
         || this.posY + this.sizeBird[1] >= this.pipe[this.i].y + this.pipeUp.height + this.gap) || this.posY + this.sizeBird[1] >= this.canvas.height - this.fg.height) {
         
+        this.end_audio.play();
         this.textGameOver();
         this.tabScore();
         this.butStart();
