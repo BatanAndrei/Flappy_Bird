@@ -86,7 +86,7 @@
 // Начало работы с игрой - код с классом ES6
 
 class Game {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i){
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY){
         this.canvas = canvas;
         this.ctx = ctx;
         this.bg = bg;
@@ -100,6 +100,11 @@ class Game {
         this.gap = gap;
         this.pipe = [];
         this.i = i;
+        this.birdSource = birdSource;
+        this.birdResult = birdResult;
+        this.sizeBird = sizeBird;
+        this.posX = posX;
+        this.posY = posY;
     }
 
 canvasGame() {
@@ -107,7 +112,7 @@ canvasGame() {
     this.ctx = this.canvas.getContext("2d");
 
     this.bird = new Image();
-    this.bird.src = "assets/bird.png";
+    this.bird.src = "assets/sprite.png";
 
     this.bg = new Image();
     this.bg.src = "assets/bg.png";
@@ -125,6 +130,10 @@ canvasGame() {
         x: this.canvas.width,
         y: 0,
     };
+
+    this.sizeBird = [34, 26];
+    this.posX = 10;
+    this.posY = 150;
 };
 
 drawBack() {
@@ -164,7 +173,34 @@ drawGround() {
 }
 
 drawBird() {
-
+    this.birdSource = {
+            x: 276,
+            y: 114 + (Math.floor((this.index % 9) / 3) * this.sizeBird[1]),
+            width: this.sizeBird[0],
+            height: this.sizeBird[1],
+          };
+        
+    this.birdResult = {
+            x: this.posX,
+            y: this.posY,
+            width: this.sizeBird[0],
+            height: this.sizeBird[1],
+          };
+          
+          this.ctx.drawImage(
+            this.bird,
+        
+            this.birdSource.x,
+            this.birdSource.y,
+            this.birdSource.width,
+            this.birdSource.height,
+        
+            this.birdResult.x,
+            this.birdResult.y,
+            this.birdResult.width,
+            this.birdResult.height
+          );
+          window.requestAnimationFrame(this.drawBird.bind(this));
 }
 
 loadResources() {
@@ -172,16 +208,17 @@ loadResources() {
         this.drawBack();
         this.drawPipe();
         this.drawGround();
+        this.drawBird();
       };
  };
 }
 
 let game = new Game();
 game.canvasGame();
-game.drawBack();
-game.drawPipe();
-game.drawGround();
-game.drawBird();
+//game.drawBack();
+//game.drawPipe();
+//game.drawGround();
+//game.drawBird();
 game.loadResources();
 
 
