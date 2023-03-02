@@ -256,7 +256,7 @@ loadResources() {
  }
 
  currentScore() {
-    if(this.pipe[this.i].x == 5) {
+    if(this.pipe[this.i].x == 80) {
         this.score++;
         this.score_audio.play();
         }
