@@ -132,6 +132,9 @@ canvasGame() {
     this.endGame = new Image();
     this.endGame.src = "assets/sprite.png";
 
+    this.tableScore = new Image();
+    this.tableScore.src = "assets/sprite.png";
+
     this.pipe[0] = {
         x: this.canvas.width,
         y: 0,
@@ -236,8 +239,7 @@ loadResources() {
  }
 
  gameOver() {
-    //this.endGame
-
+    
     this.endGameSource = {
         x: 194,
         y: 229,
@@ -247,7 +249,7 @@ loadResources() {
     
 this.endGameResult = {
         x: 45,
-        y: 180,
+        y: 140,
         width: 184,
         height: 34,
       };
@@ -265,6 +267,36 @@ this.endGameResult = {
         this.endGameResult.width,
         this.endGameResult.height
       );
+
+      this.tableScoreSource = {
+        x: 175,
+        y: 273,
+        width: 227,
+        height: 117,
+      };
+    
+     this.tableScoreResult = {
+        x: 25,
+        y: 180,
+        width: 227,
+        height: 117,
+      };
+      
+      this.ctx.drawImage(
+        this.tableScore,
+    
+        this.tableScoreSource.x,
+        this.tableScoreSource.y,
+        this.tableScoreSource.width,
+        this.tableScoreSource.height,
+    
+        this.tableScoreResult.x,
+        this.tableScoreResult.y,
+        this.tableScoreResult.width,
+        this.tableScoreResult.height
+      );
+
+      
  }
 
  update() {
