@@ -106,7 +106,7 @@ class Game {
         this.posX = posX;
         this.posY = posY;
         this.grav = grav;
-        this.degrees = degrees;
+       // this.degrees = degrees;
         this.myReq = myReq;
     }
 
@@ -138,7 +138,7 @@ canvasGame() {
     this.posX = 10;
     this.posY = 150;
     this.grav = 1.5; 
-    this.degrees = 1;
+    //this.degrees = 1;
 };
 
 drawBack() {
@@ -180,6 +180,7 @@ drawBird() {
                 this.birdResult.width,
                 this.birdResult.height
               );
+
               this.posY += this.grav;
     }
 
@@ -203,7 +204,8 @@ drawPipe() {
         && this.posX <= this.pipe[this.i].x + this.pipeUp.width
         && (this.posY <= this.pipe[this.i].y + this.pipeUp.height
         || this.posY + this.sizeBird[1] >= this.pipe[this.i].y + this.pipeUp.height + this.gap) || this.posY + this.sizeBird[1] >= this.canvas.height - this.fg.height) {
-
+        this.gameOver();
+        this.drawGround();
         window.cancelAnimationFrame(this.myReq.bird(this));
         }
 }
@@ -226,8 +228,12 @@ loadResources() {
     window.addEventListener('click', moveUp);
 
     function moveUp() {
-        game.posY -=25;   
+        game.posY -=30;   
     }
+ }
+
+ gameOver() {
+    
  }
 
  update() {
@@ -235,7 +241,7 @@ loadResources() {
     this.drawPipe();
     this.drawGround();
     this.drawBird();
-
+    
     this.myReq = window.requestAnimationFrame(this.update.bind(this));
  }
 
