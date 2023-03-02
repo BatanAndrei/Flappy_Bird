@@ -86,7 +86,7 @@
 // Начало работы с игрой - код с классом ES6
 
 class Game {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq){
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq, endGame, tableScore, buttonStart){
         this.canvas = canvas;
         this.ctx = ctx;
         this.bg = bg;
@@ -108,6 +108,9 @@ class Game {
         this.grav = grav;
        // this.degrees = degrees;
         this.myReq = myReq;
+        this.endGame = endGame;
+        this.tableScore = tableScore;
+        this.buttonStart = buttonStart;
     }
 
 canvasGame() {
@@ -135,13 +138,16 @@ canvasGame() {
     this.tableScore = new Image();
     this.tableScore.src = "assets/sprite.png";
 
+    this.buttonStart = new Image();
+    this.buttonStart.src = "assets/sprite.png";
+
     this.pipe[0] = {
         x: this.canvas.width,
         y: 0,
     };
 
     this.sizeBird = [34, 26];
-    this.posX = 10;
+    this.posX = 100;
     this.posY = 150;
     this.grav = 1.5; 
     //this.degrees = 1;
@@ -154,7 +160,6 @@ drawBack() {
 
     this.ctx.drawImage(this.bg, this.backgroudX + this.canvas.width, 0, this.canvas.width, this.canvas.height);
     this.ctx.drawImage(this.bg, this.backgroudX, 0, this.canvas.width, this.canvas.height);
-    
 }
 
 drawBird() {
@@ -210,9 +215,13 @@ drawPipe() {
         && this.posX <= this.pipe[this.i].x + this.pipeUp.width
         && (this.posY <= this.pipe[this.i].y + this.pipeUp.height
         || this.posY + this.sizeBird[1] >= this.pipe[this.i].y + this.pipeUp.height + this.gap) || this.posY + this.sizeBird[1] >= this.canvas.height - this.fg.height) {
+        
         this.gameOver();
+        this.tabScore();
+        this.butStart();
         this.drawGround();
-        window.cancelAnimationFrame(this.myReq.bird(this));
+       
+        window.cancelAnimationFrame(this.myReq.bind(this));
         }
 }
 }
@@ -239,7 +248,6 @@ loadResources() {
  }
 
  gameOver() {
-    
     this.endGameSource = {
         x: 194,
         y: 229,
@@ -247,7 +255,7 @@ loadResources() {
         height: 34,
       };
     
-this.endGameResult = {
+    this.endGameResult = {
         x: 45,
         y: 140,
         width: 184,
@@ -267,7 +275,9 @@ this.endGameResult = {
         this.endGameResult.width,
         this.endGameResult.height
       );
+      }
 
+    tabScore() {
       this.tableScoreSource = {
         x: 175,
         y: 273,
@@ -295,8 +305,36 @@ this.endGameResult = {
         this.tableScoreResult.width,
         this.tableScoreResult.height
       );
+      } 
 
+      butStart() {
+      this.buttonStartSource = {
+        x: 246,
+        y: 400,
+        width: 82,
+        height: 29,
+      };
+    
+     this.buttonStartResult = {
+        x: 100,
+        y: 310,
+        width: 82,
+        height: 29,
+      };
       
+      this.ctx.drawImage(
+        this.buttonStart,
+    
+        this.buttonStartSource.x,
+        this.buttonStartSource.y,
+        this.buttonStartSource.width,
+        this.buttonStartSource.height,
+    
+        this.buttonStartResult.x,
+        this.buttonStartResult.y,
+        this.buttonStartResult.width,
+        this.buttonStartResult.height
+      );  
  }
 
  update() {
@@ -307,7 +345,6 @@ this.endGameResult = {
     
     this.myReq = window.requestAnimationFrame(this.update.bind(this));
  }
-
 }
 
 let game = new Game();
