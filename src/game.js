@@ -86,7 +86,7 @@
 // Начало работы с игрой - код с классом ES6
 
 class Game {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav){
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq){
         this.canvas = canvas;
         this.ctx = ctx;
         this.bg = bg;
@@ -106,12 +106,14 @@ class Game {
         this.posX = posX;
         this.posY = posY;
         this.grav = grav;
+        this.degrees = degrees;
+        this.myReq = myReq;
     }
 
 canvasGame() {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
-
+    
     this.bird = new Image();
     this.bird.src = "assets/sprite.png";
 
@@ -135,7 +137,8 @@ canvasGame() {
     this.sizeBird = [34, 26];
     this.posX = 10;
     this.posY = 150;
-    this.grav = 1.5;
+    this.grav = 1.5; 
+    this.degrees = 1;
 };
 
 drawBack() {
@@ -146,65 +149,68 @@ drawBack() {
     this.ctx.drawImage(this.bg, this.backgroudX + this.canvas.width, 0, this.canvas.width, this.canvas.height);
     this.ctx.drawImage(this.bg, this.backgroudX, 0, this.canvas.width, this.canvas.height);
     
-    window.requestAnimationFrame(this.drawBack.bind(this));
 }
 
+drawBird() {
+  
+        this.birdSource = {
+                x: 276,
+                y: 114 + (Math.floor((this.index % 9) / 3) * this.sizeBird[1]),
+                width: this.sizeBird[0],
+                height: this.sizeBird[1],
+              };
+            
+        this.birdResult = {
+                x: this.posX,
+                y: this.posY,
+                width: this.sizeBird[0],
+                height: this.sizeBird[1],
+              };
+              
+              this.ctx.drawImage(
+                this.bird,
+            
+                this.birdSource.x,
+                this.birdSource.y,
+                this.birdSource.width,
+                this.birdSource.height,
+            
+                this.birdResult.x,
+                this.birdResult.y,
+                this.birdResult.width,
+                this.birdResult.height
+              );
+              this.posY += this.grav;
+    }
+
 drawPipe() {
-    this.gap = 80;
+    this.gap = 120;
 
     for( this.i = 0; this.i < this.pipe.length; this.i++) {
         this.ctx.drawImage(this.pipeUp, this.pipe[this.i].x, this.pipe[this.i].y);
         this.ctx.drawImage(this.pipeBottom, this.pipe[this.i].x, this.pipe[this.i].y + this.pipeUp.height + this.gap);
           
         this.pipe[this.i].x--;
-        
+ 
         if(this.pipe[this.i].x == 100) {
         this.pipe.push({
         x : this.canvas.width,
         y : Math.floor(Math.random() * this.pipeUp.height) - this.pipeUp.height
         });
     }
+
+    if(this.posX + this.sizeBird[0] >= this.pipe[this.i].x
+        && this.posX <= this.pipe[this.i].x + this.pipeUp.width
+        && (this.posY <= this.pipe[this.i].y + this.pipeUp.height
+        || this.posY + this.sizeBird[1] >= this.pipe[this.i].y + this.pipeUp.height + this.gap) || this.posY + this.sizeBird[1] >= this.canvas.height - this.fg.height) {
+
+        window.cancelAnimationFrame(this.myReq.bird(this));
+        }
 }
-        window.requestAnimationFrame(this.drawPipe.bind(this));
 }
 
 drawGround() {
      this.ctx.drawImage(this.fg, 0, this.canvas.height - this.fg.height);
-
-     window.requestAnimationFrame(this.drawGround.bind(this));
-}
-
-drawBird() {
-    this.birdSource = {
-            x: 276,
-            y: 114 + (Math.floor((this.index % 9) / 3) * this.sizeBird[1]),
-            width: this.sizeBird[0],
-            height: this.sizeBird[1],
-          };
-        
-    this.birdResult = {
-            x: this.posX,
-            y: this.posY,
-            width: this.sizeBird[0],
-            height: this.sizeBird[1],
-          };
-          
-          this.ctx.drawImage(
-            this.bird,
-        
-            this.birdSource.x,
-            this.birdSource.y,
-            this.birdSource.width,
-            this.birdSource.height,
-        
-            this.birdResult.x,
-            this.birdResult.y,
-            this.birdResult.width,
-            this.birdResult.height
-          );
-       
-          //this.posY += this.grav;
-          window.requestAnimationFrame(this.drawBird.bind(this));
 }
 
 loadResources() {
@@ -223,16 +229,27 @@ loadResources() {
         game.posY -=25;   
     }
  }
+
+ update() {
+    this.drawBack();
+    this.drawPipe();
+    this.drawGround();
+    this.drawBird();
+
+    this.myReq = window.requestAnimationFrame(this.update.bind(this));
+ }
+
 }
 
 let game = new Game();
 game.canvasGame();
-//game.drawBack();
-//game.drawPipe();
-//game.drawGround();
-//game.drawBird();
+game.drawBack();
+game.drawPipe();
+game.drawGround();
+game.drawBird();
 game.loadResources();
 game.control();
+game.update();
 
 
 
