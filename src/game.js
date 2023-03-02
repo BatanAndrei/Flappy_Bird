@@ -203,6 +203,10 @@ drawBird() {
               );
 
               this.posY += this.grav;
+
+              this.ctx.fillStyle = "#000";
+              this.ctx.font = "24px Verdana";
+              this.ctx.fillText("Счет: " + this.score, 10, this.canvas.height - 20);
     }
 
 drawPipe() {
