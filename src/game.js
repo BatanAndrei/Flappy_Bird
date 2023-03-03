@@ -248,6 +248,7 @@ loadResources() {
  };
 
  control() {
+    document.addEventListener("keydown", moveUp);
     window.addEventListener('click', moveUp);
 
     function moveUp() {
@@ -289,7 +290,7 @@ deadBird() {
 
         this.ctx.font = "bold 22px Verdana";
         this.ctx.fillStyle = "#000";
-        
+
         this.ctx.fillText(this.score, 200, this.canvas.height - 282);
         this.ctx.fillText(this.scoreRec, 200, this.canvas.height - 241);
 
