@@ -86,7 +86,7 @@
 // Начало работы с игрой - код с классом ES6
 
 class Game {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY){
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation){
         this.canvas = canvas;
         this.ctx = ctx;
         this.bg = bg;
@@ -94,7 +94,7 @@ class Game {
         this.fg = fg;
         this.pipeUp = pipeUp;
         this.pipeBottom = pipeBottom;
-        this.speedBackGround = 3.1;
+        this.speedBack = 3.1;
         this.index = 0;
         this.backgroudX = backgroudX;
         this.gap = gap;
@@ -106,7 +106,7 @@ class Game {
         this.posX = posX;
         this.posY = posY;
         this.grav = grav;
-       // this.degrees = degrees;
+        this.rotation = rotation;
         this.myReq = myReq;
         this.endGame = endGame;
         this.tableScore = tableScore;
@@ -118,11 +118,15 @@ class Game {
         this.scoreRec = scoreRec;
         this.mouseX = mouseX;
         this.mouseY = mouseY;
+        this.birdD = birdD;
     }
 
 canvasGame() {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
+
+    this.birdD = new Image();
+    this.birdD.src = "assets/bird.png"
 
     this.bird = new Image();
     this.bird.src = "assets/sprite.png";
@@ -167,13 +171,12 @@ canvasGame() {
     this.posX = 100;
     this.posY = 150;
     this.grav = 1.5; 
-    //this.degrees = 1;
 };
 
 drawBack() {
     this.index += 0.3;
 
-    this.backgroudX = -((this.index * this.speedBackGround) % this.canvas.width);
+    this.backgroudX = -((this.index * this.speedBack) % this.canvas.width);
 
     this.ctx.drawImage(this.bg, this.backgroudX + this.canvas.width, 0, this.canvas.width, this.canvas.height);
     this.ctx.drawImage(this.bg, this.backgroudX, 0, this.canvas.width, this.canvas.height);
@@ -217,18 +220,18 @@ drawBird() {
 
               this.ctx.fillStyle = "#000";
               this.ctx.font = "24px Verdana";
-              this.ctx.fillText("Счет: " + this.score, 10, this.canvas.height - 20);
+              this.ctx.fillText("Score: " + this.score, 10, this.canvas.height - 20);
     }
 
 drawPipe() {
     this.gap = 100;
-
+    
     for( this.i = 0; this.i < this.pipe.length; this.i++) {
         this.ctx.drawImage(this.pipeUp, this.pipe[this.i].x, this.pipe[this.i].y);
         this.ctx.drawImage(this.pipeBottom, this.pipe[this.i].x, this.pipe[this.i].y + this.pipeUp.height + this.gap);
           
         this.pipe[this.i].x--;
- 
+        
         if(this.pipe[this.i].x == 100) {
         this.pipe.push({
         x : this.canvas.width,
@@ -312,10 +315,19 @@ update() {
     this.drawPipe();
     this.drawGround();
     this.drawBird();
+    this.rotateBird();
     
     this.myReq = window.requestAnimationFrame(this.update.bind(this));
  }
 
+ rotateBird() {
+        this.ctx.save();
+        this.ctx.translate(this.x + this.birdD.width / 2, this.y + this.birdD.height / 2);
+        this.ctx.rotate(this.rotation * Math.PI / 180);
+        this.ctx.drawImage(this.birdD, -this.birdD.width / 2, -this.birdD.height / 2);
+        this.ctx.restore();
+    };
+ 
  textGameOver() {
     this.endGameSource = {
         x: 194,
@@ -406,7 +418,7 @@ update() {
         this.buttonStartResult.height
       );  
 
-      game.canvas.onmousemove = function() {
+      game.canvas.onmousemove = function(event) {
         game.mouseX = event.offsetX;
          game.mouseY = event.offsetY;
 
