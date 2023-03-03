@@ -257,12 +257,13 @@ loadResources() {
  }
 
  currentScore() {
-    localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
+        localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
 
     if(this.pipe[this.i].x == 80) {
-        this.scoreRec;
         localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
+        this.scoreRec;
         this.score++;
+
         this.score_audio.play();
         }
 
@@ -280,6 +281,7 @@ deadBird() {
         || this.posY + this.sizeBird[1] >= this.pipe[this.i].y + this.pipeUp.height + this.gap) || this.posY + this.sizeBird[1] >= this.canvas.height - this.fg.height) {
         
         this.end_audio.play();
+
         this.textGameOver();
         this.tabScore();
         this.butStart();
@@ -287,6 +289,7 @@ deadBird() {
 
         this.ctx.font = "bold 22px Verdana";
         this.ctx.fillStyle = "#000";
+        
         this.ctx.fillText(this.score, 200, this.canvas.height - 282);
         this.ctx.fillText(this.scoreRec, 200, this.canvas.height - 241);
 
