@@ -86,7 +86,7 @@
 // Начало работы с игрой - код с классом ES6
 
 class Game {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio){
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec){
         this.canvas = canvas;
         this.ctx = ctx;
         this.bg = bg;
@@ -115,6 +115,7 @@ class Game {
         this.score_audio = score_audio;
         this.score = score;
         this.end_audio = end_audio;
+        this.scoreRec = scoreRec;
     }
 
 canvasGame() {
@@ -214,7 +215,7 @@ drawBird() {
     }
 
 drawPipe() {
-    this.gap = 120;
+    this.gap = 100;
 
     for( this.i = 0; this.i < this.pipe.length; this.i++) {
         this.ctx.drawImage(this.pipeUp, this.pipe[this.i].x, this.pipe[this.i].y);
@@ -250,15 +251,25 @@ loadResources() {
     window.addEventListener('click', moveUp);
 
     function moveUp() {
-        game.posY -=40;  
+        game.posY -=50;  
         game.fly.play();
     }
  }
 
  currentScore() {
+    localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
+
     if(this.pipe[this.i].x == 80) {
+        this.scoreRec;
+        localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
         this.score++;
         this.score_audio.play();
+        }
+
+        if (this.score > localStorage.getItem('record')){
+            this.scoreRec++;
+            this.scoreRec = this.score;
+            localStorage.setItem('record', this.scoreRec);
         }
  }
 
@@ -274,10 +285,11 @@ deadBird() {
         this.butStart();
         this.drawGround();
 
-        this.ctx.font = "20px Verdana";
+        this.ctx.font = "bold 22px Verdana";
+        this.ctx.fillStyle = "#000";
         this.ctx.fillText(this.score, 200, this.canvas.height - 282);
-        this.ctx.fillText(this.score, 200, this.canvas.height - 241);
-       
+        this.ctx.fillText(this.scoreRec, 200, this.canvas.height - 241);
+
         window.cancelAnimationFrame(this.myReq.bind(this));
         }
 }
