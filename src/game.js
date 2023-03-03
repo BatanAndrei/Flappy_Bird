@@ -86,7 +86,7 @@
 // Начало работы с игрой - код с классом ES6
 
 class Game {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, elemLeft, elemTop, elements, mouseX, mouseY){
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY){
         this.canvas = canvas;
         this.ctx = ctx;
         this.bg = bg;
@@ -118,19 +118,12 @@ class Game {
         this.scoreRec = scoreRec;
         this.mouseX = mouseX;
         this.mouseY = mouseY;
-        //this.elemLeft = elemLeft;
-        //this.elemTop = elemTop;
-        //this.elements = elements;
     }
 
 canvasGame() {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
 
-    this.elemLeft = this.ctx.offsetLeft,
-    this.elemTop = this.ctx.offsetTop,
-    this.elements = [];
-    
     this.bird = new Image();
     this.bird.src = "assets/sprite.png";
 
@@ -265,7 +258,7 @@ loadResources() {
         game.posY -=50;  
         game.fly.play();
     }
-    
+
      window.addEventListener("keydown" ,moveUp);
       function moveUp() {
         game.posY -=50;  
