@@ -86,7 +86,7 @@
 // Начало работы с игрой - код с классом ES6
 
 class Game {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec){
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, elemLeft, elemTop, elements, mouseX, mouseY){
         this.canvas = canvas;
         this.ctx = ctx;
         this.bg = bg;
@@ -116,11 +116,20 @@ class Game {
         this.score = score;
         this.end_audio = end_audio;
         this.scoreRec = scoreRec;
+        this.mouseX = mouseX;
+        this.mouseY = mouseY;
+        //this.elemLeft = elemLeft;
+        //this.elemTop = elemTop;
+        //this.elements = elements;
     }
 
 canvasGame() {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
+
+    this.elemLeft = this.ctx.offsetLeft,
+    this.elemTop = this.ctx.offsetTop,
+    this.elements = [];
     
     this.bird = new Image();
     this.bird.src = "assets/sprite.png";
@@ -152,7 +161,7 @@ canvasGame() {
     this.score_audio = new Audio();
     this.score_audio.src = "audio/score.mp3";
 
-    this.end_audio = new Audio();
+    this.end_audio = new Audio();;
     this.end_audio.src = "audio/gameover.mp3";
 
     this.pipe[0] = {
@@ -223,7 +232,7 @@ drawPipe() {
           
         this.pipe[this.i].x--;
  
-        if(this.pipe[this.i].x == 100) {
+        if(this.pipe[this.i].x == 30) {
         this.pipe.push({
         x : this.canvas.width,
         y : Math.floor(Math.random() * this.pipeUp.height) - this.pipeUp.height
@@ -248,7 +257,7 @@ loadResources() {
  };
 
  control() {
-    document.addEventListener("keydown", moveUp);
+    window.addEventListener("keydown", moveUp);
     window.addEventListener('click', moveUp);
 
     function moveUp() {
@@ -280,13 +289,13 @@ deadBird() {
         && this.posX <= this.pipe[this.i].x + this.pipeUp.width
         && (this.posY <= this.pipe[this.i].y + this.pipeUp.height
         || this.posY + this.sizeBird[1] >= this.pipe[this.i].y + this.pipeUp.height + this.gap) || this.posY + this.sizeBird[1] >= this.canvas.height - this.fg.height) {
-        
-        this.end_audio.play();
-
+    
         this.textGameOver();
         this.tabScore();
         this.butStart();
         this.drawGround();
+
+        this.end_audio.play();
 
         this.ctx.font = "bold 22px Verdana";
         this.ctx.fillStyle = "#000";
@@ -359,6 +368,7 @@ deadBird() {
       } 
 
       butStart() {
+
       this.buttonStartSource = {
         x: 246,
         y: 400,
@@ -386,6 +396,20 @@ deadBird() {
         this.buttonStartResult.width,
         this.buttonStartResult.height
       );  
+
+      game.canvas.onmousemove = function() {
+        game.mouseX = event.offsetX;
+         game.mouseY = event.offsetY;
+
+          if (game.mouseX >= game.buttonStartResult.x && game.mouseX <= (game.buttonStartResult.x + game.buttonStartResult.width) && game.mouseY >= game.buttonStartResult.y && game.mouseY <= (game.buttonStartResult.y + game.buttonStartResult.height)) {
+            
+            game.canvas.onclick = function() {
+              location.reload();
+           }
+          } else {
+            game.canvas.onclick = null;
+         }
+        }
  }
 
  update() {
