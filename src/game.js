@@ -232,7 +232,7 @@ drawPipe() {
           
         this.pipe[this.i].x--;
  
-        if(this.pipe[this.i].x == 30) {
+        if(this.pipe[this.i].x == 100) {
         this.pipe.push({
         x : this.canvas.width,
         y : Math.floor(Math.random() * this.pipeUp.height) - this.pipeUp.height
@@ -257,12 +257,15 @@ loadResources() {
  };
 
  control() {
-    window.addEventListener("keydown", moveUp);
-    window.addEventListener('click', moveUp);
+    game.canvas.onclick = function() {
+        game.posY -=50;  
+        game.fly.play();
+    }
+    
+     window.addEventListener("keydown", moveUp);
 
     function moveUp() {
         game.posY -=50;  
-        game.fly.play();
     }
  }
 
