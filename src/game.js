@@ -273,6 +273,10 @@ deadBird() {
         this.tabScore();
         this.butStart();
         this.drawGround();
+
+        this.ctx.font = "20px Verdana";
+        this.ctx.fillText(this.score, 200, this.canvas.height - 282);
+        this.ctx.fillText(this.score, 200, this.canvas.height - 241);
        
         window.cancelAnimationFrame(this.myReq.bind(this));
         }
