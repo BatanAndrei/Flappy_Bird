@@ -187,7 +187,6 @@ drawBack() {
 }
 
 drawBird() {
-  
         this.birdSource = {
                 x: 276,
                 y: 114 + (Math.floor((this.index % 9) / 3) * this.sizeBird[1]),
@@ -217,6 +216,11 @@ drawBird() {
               );
 
               this.posY += this.grav;
+
+              if(this.posY + this.sizeBird[1] <= this.canvas.height - 512){
+                
+                this.posY += 10;
+              }
 
               this.ctx.fillStyle = "#000";
               this.ctx.font = "24px Verdana";
@@ -262,10 +266,10 @@ loadResources() {
         game.fly.play();
     }
     
-     window.addEventListener("keydown", moveUp);
-
-    function moveUp() {
+     window.addEventListener("keydown" ,moveUp);
+      function moveUp() {
         game.posY -=50;  
+        game.fly.play();
     }
  }
 
@@ -309,6 +313,15 @@ deadBird() {
         window.cancelAnimationFrame(this.myReq.bind(this));
         }
 }
+
+update() {
+    this.drawBack();
+    this.drawPipe();
+    this.drawGround();
+    this.drawBird();
+    
+    this.myReq = window.requestAnimationFrame(this.update.bind(this));
+ }
 
  textGameOver() {
     this.endGameSource = {
@@ -413,15 +426,6 @@ deadBird() {
             game.canvas.onclick = null;
          }
         }
- }
-
- update() {
-    this.drawBack();
-    this.drawPipe();
-    this.drawGround();
-    this.drawBird();
-    
-    this.myReq = window.requestAnimationFrame(this.update.bind(this));
  }
 }
 
