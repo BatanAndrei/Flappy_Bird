@@ -117,12 +117,14 @@ class Game {
         this.speedBack = 3.1;
         this.index = 0;
         this.backgroudX = backgroudX;
+
         this.gap = gap;
+        this.posX = posX;
+        this.posY = posY;
+
         this.pipe = [];
         this.i = i;
 
-        this.posX = posX;
-        this.posY = posY;
         this.grav = grav;
 
         this.mouseX = mouseX;
@@ -450,4 +452,8 @@ game.control();
 game.update();
 
 
-
+// class Score {
+//      constructor() {
+//         super()
+//      }
+// }
