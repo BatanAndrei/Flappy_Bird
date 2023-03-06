@@ -86,39 +86,47 @@
 // Начало работы с игрой - код с классом ES6
 
 class Game {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, degrees, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation){
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation){
         this.canvas = canvas;
         this.ctx = ctx;
+
         this.bg = bg;
         this.bird = bird;
         this.fg = fg;
         this.pipeUp = pipeUp;
         this.pipeBottom = pipeBottom;
+        this.birdSource = birdSource;
+        this.birdResult = birdResult;
+        this.birdD = birdD;
+        this.tableScore = tableScore;
+        this.buttonStart = buttonStart;
+        this.endGame = endGame;
+
+        this.rotation = rotation;
+
+        this.myReq = myReq;
+
+        this.fly = fly;
+        this.score_audio = score_audio;
+        this.end_audio = end_audio;
+
+        this.score = score;
+        this.scoreRec = scoreRec;
+       
+        this.sizeBird = sizeBird;
         this.speedBack = 3.1;
         this.index = 0;
         this.backgroudX = backgroudX;
         this.gap = gap;
         this.pipe = [];
         this.i = i;
-        this.birdSource = birdSource;
-        this.birdResult = birdResult;
-        this.sizeBird = sizeBird;
+
         this.posX = posX;
         this.posY = posY;
         this.grav = grav;
-        this.rotation = rotation;
-        this.myReq = myReq;
-        this.endGame = endGame;
-        this.tableScore = tableScore;
-        this.buttonStart = buttonStart;
-        this.fly = fly;
-        this.score_audio = score_audio;
-        this.score = score;
-        this.end_audio = end_audio;
-        this.scoreRec = scoreRec;
+
         this.mouseX = mouseX;
         this.mouseY = mouseY;
-        this.birdD = birdD;
     }
 
 canvasGame() {
@@ -301,9 +309,9 @@ deadBird() {
         && (this.posY <= this.pipe[this.i].y + this.pipeUp.height
         || this.posY + this.sizeBird[1] >= this.pipe[this.i].y + this.pipeUp.height + this.gap) || this.posY + this.sizeBird[1] >= this.canvas.height - this.fg.height) {
      
-        this.textGameOver();
-        this.tabScore();
-        this.butStart();
+        this.drawTextGameOver();
+        this.drawTabScore();
+        this.drawButStart();
         this.drawGround();
 
         this.end_audio.play();
@@ -326,7 +334,7 @@ update() {
     this.myReq = window.requestAnimationFrame(this.update.bind(this));
  }
  
- textGameOver() {
+ drawTextGameOver() {
     this.endGameSource = {
         x: 194,
         y: 229,
@@ -356,7 +364,7 @@ update() {
       );
       }
 
-    tabScore() {
+    drawTabScore() {
       this.tableScoreSource = {
         x: 175,
         y: 273,
@@ -386,8 +394,7 @@ update() {
       );
       } 
 
-      butStart() {
-
+      drawButStart() {
       this.buttonStartSource = {
         x: 246,
         y: 400,
