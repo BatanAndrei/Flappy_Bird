@@ -487,7 +487,7 @@ class LogicAndScore extends Game {
                 });
             }
                 logic.deadBird();
-                //logic.gameScore();
+                logic.gameScore();
         }
         }
 
@@ -508,20 +508,20 @@ class LogicAndScore extends Game {
     //  }
     
      gameScore() {
-            localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
+            localStorage.getItem('record') > 0 ? game.scoreRec = localStorage.getItem('record') : game.scoreRec = 0;
     
-        if(this.pipe[this.i].x == 80) {
-            localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
-            this.scoreRec;
-            this.score++;
+        if(game.pipe[game.i].x == 80) {
+            localStorage.getItem('record') > 0 ? game.scoreRec = localStorage.getItem('record') : game.scoreRec = 0;
+            game.scoreRec;
+            game.score++;
     
-            this.score_audio.play();
+            game.score_audio.play();
             }
     
-            if (this.score > localStorage.getItem('record')){
-                this.scoreRec++;
-                this.scoreRec = this.score;
-                localStorage.setItem('record', this.scoreRec);
+            if (game.score > localStorage.getItem('record')){
+                game.scoreRec++;
+                game.scoreRec = game.score;
+                localStorage.setItem('record', game.scoreRec);
             }
      }
     
@@ -536,12 +536,12 @@ class LogicAndScore extends Game {
             game.drawButStart();
             game.drawGround();
     
-            this.end_audio.play();
+            game.end_audio.play();
     
-            this.ctx.font = "bold 22px Verdana";
-            this.ctx.fillStyle = "#000";
-            this.ctx.fillText(this.score, 200, this.canvas.height - 282);
-            this.ctx.fillText(this.scoreRec, 200, this.canvas.height - 241);
+            game.ctx.font = "bold 22px Verdana";
+            game.ctx.fillStyle = "#000";
+            game.ctx.fillText(game.score, 200, game.canvas.height - 282);
+            game.ctx.fillText(game.scoreRec, 200, game.canvas.height - 241);
     
             window.cancelAnimationFrame(this.myReq.bind(this));
             }
