@@ -241,25 +241,25 @@ drawBird() {
               this.ctx.fillText("Score: " + this.score, 10, this.canvas.height - 20);
     }
 
-drawPipe() {
-    this.gap = 100;
+// drawPipe() {
+//     this.gap = 100;
     
-    for( this.i = 0; this.i < this.pipe.length; this.i++) {
-        this.ctx.drawImage(this.pipeUp, this.pipe[this.i].x, this.pipe[this.i].y);
-        this.ctx.drawImage(this.pipeBottom, this.pipe[this.i].x, this.pipe[this.i].y + this.pipeUp.height + this.gap);
+//     for( this.i = 0; this.i < this.pipe.length; this.i++) {
+//         this.ctx.drawImage(this.pipeUp, this.pipe[this.i].x, this.pipe[this.i].y);
+//         this.ctx.drawImage(this.pipeBottom, this.pipe[this.i].x, this.pipe[this.i].y + this.pipeUp.height + this.gap);
           
-        this.pipe[this.i].x--;
+//         this.pipe[this.i].x--;
         
-        if(this.pipe[this.i].x == 100) {
-        this.pipe.push({
-        x : this.canvas.width,
-        y : Math.floor(Math.random() * this.pipeUp.height) - this.pipeUp.height
-        });
-    }
-        this.deadBird();
-        this.gameScore();
-}
-}
+//         if(this.pipe[this.i].x == 100) {
+//         this.pipe.push({
+//         x : this.canvas.width,
+//         y : Math.floor(Math.random() * this.pipeUp.height) - this.pipeUp.height
+//         });
+//     }
+//         //this.deadBird();
+//         //this.gameScore();
+// }
+// }
 
 drawGround() {
      this.ctx.drawImage(this.fg, 0, this.canvas.height - this.fg.height);
@@ -268,73 +268,73 @@ drawGround() {
 loadResources() {
     window.onload = (event) => {
         this.drawBack();
-        this.drawPipe();
+        logic.drawPipe();
         this.drawGround();
         this.drawBird();
       };
  };
 
- control() {
-    game.canvas.onclick = function() {
-        game.posY -=50;  
-        game.fly_audio.play();
-    }
+//  control() {
+//     game.canvas.onclick = function() {
+//         game.posY -=50;  
+//         game.fly_audio.play();
+//     }
 
-     window.addEventListener("keydown" ,moveUp);
-      function moveUp() {
-        game.posY -=50;  
-        game.fly.play();
-    }
- }
+//      window.addEventListener("keydown" ,moveUp);
+//       function moveUp() {
+//         game.posY -=50;  
+//         game.fly.play();
+//     }
+//  }
 
- gameScore() {
-        localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
+//  gameScore() {
+//         localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
 
-    if(this.pipe[this.i].x == 80) {
-        localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
-        this.scoreRec;
-        this.score++;
+//     if(this.pipe[this.i].x == 80) {
+//         localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
+//         this.scoreRec;
+//         this.score++;
 
-        this.score_audio.play();
-        }
+//         this.score_audio.play();
+//         }
 
-        if (this.score > localStorage.getItem('record')){
-            this.scoreRec++;
-            this.scoreRec = this.score;
-            localStorage.setItem('record', this.scoreRec);
-        }
- }
+//         if (this.score > localStorage.getItem('record')){
+//             this.scoreRec++;
+//             this.scoreRec = this.score;
+//             localStorage.setItem('record', this.scoreRec);
+//         }
+//  }
 
-deadBird() {
-    if(this.posX + this.sizeBird[0] >= this.pipe[this.i].x
-        && this.posX <= this.pipe[this.i].x + this.pipeUp.width
-        && (this.posY <= this.pipe[this.i].y + this.pipeUp.height
-        || this.posY + this.sizeBird[1] >= this.pipe[this.i].y + this.pipeUp.height + this.gap) || this.posY + this.sizeBird[1] >= this.canvas.height - this.fg.height) {
+// deadBird() {
+//     if(this.posX + this.sizeBird[0] >= this.pipe[this.i].x
+//         && this.posX <= this.pipe[this.i].x + this.pipeUp.width
+//         && (this.posY <= this.pipe[this.i].y + this.pipeUp.height
+//         || this.posY + this.sizeBird[1] >= this.pipe[this.i].y + this.pipeUp.height + this.gap) || this.posY + this.sizeBird[1] >= this.canvas.height - this.fg.height) {
      
-        this.drawTextGameOver();
-        this.drawTabScore();
-        this.drawButStart();
-        this.drawGround();
+//         this.drawTextGameOver();
+//         this.drawTabScore();
+//         this.drawButStart();
+//         this.drawGround();
 
-        this.end_audio.play();
+//         this.end_audio.play();
 
-        this.ctx.font = "bold 22px Verdana";
-        this.ctx.fillStyle = "#000";
-        this.ctx.fillText(this.score, 200, this.canvas.height - 282);
-        this.ctx.fillText(this.scoreRec, 200, this.canvas.height - 241);
+//         this.ctx.font = "bold 22px Verdana";
+//         this.ctx.fillStyle = "#000";
+//         this.ctx.fillText(this.score, 200, this.canvas.height - 282);
+//         this.ctx.fillText(this.scoreRec, 200, this.canvas.height - 241);
 
-        window.cancelAnimationFrame(this.myReq.bind(this));
-        }
-}
+//         window.cancelAnimationFrame(this.myReq.bind(this));
+//         }
+// }
 
-update() {
-    this.drawBack();
-    this.drawPipe();
-    this.drawGround();
-    this.drawBird();
+// update() {
+//     this.drawBack();
+//     this.drawPipe();
+//     this.drawGround();
+//     this.drawBird();
     
-    this.myReq = window.requestAnimationFrame(this.update.bind(this));
- }
+//     this.myReq = window.requestAnimationFrame(this.update.bind(this));
+//  }
  
  drawTextGameOver() {
     this.endGameSource = {
@@ -444,16 +444,121 @@ update() {
 let game = new Game();
 game.canvasGame();
 game.drawBack();
-game.drawPipe();
+//game.drawPipe();
 game.drawGround();
 game.drawBird();
 game.loadResources();
-game.control();
-game.update();
+// game.control();
+// game.update();
 
 
-// class Score {
-//      constructor() {
-//         super()
-//      }
-// }
+class LogicAndScore extends Game {
+     constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation) {
+        super(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation)
+     }
+
+     control() {
+        game.canvas.onclick = function() {
+            game.posY -=50;  
+            game.fly_audio.play();
+        }
+    
+         window.addEventListener("keydown" ,moveUp);
+          function moveUp() {
+            game.posY -=50;  
+            game.fly.play();
+        }
+     }
+
+     drawPipe() {
+            game.gap = 100;
+            
+            for( game.i = 0; game.i < game.pipe.length; game.i++) {
+                game.ctx.drawImage(game.pipeUp, game.pipe[game.i].x, game.pipe[game.i].y);
+                game.ctx.drawImage(game.pipeBottom, game.pipe[game.i].x, game.pipe[game.i].y + game.pipeUp.height + game.gap);
+                  
+                game.pipe[game.i].x--;
+                //console.log(game.pipe.length)
+
+                if(game.pipe[game.i].x == 100) {
+                game.pipe.push({
+                x : game.canvas.width,
+                y : Math.floor(Math.random() * game.pipeUp.height) - game.pipeUp.height
+                });
+            }
+                logic.deadBird();
+                //logic.gameScore();
+        }
+        }
+
+    //  pipe() {
+    //     for( this.i = 0; this.i < this.pipe.length; this.i++) {
+    //         game.drawPipe()
+    //         this.pipe[this.i].x--;
+        
+    //         if(this.pipe[this.i].x == 100) {
+    //         this.pipe.push({
+    //         x : this.canvas.width,
+    //         y : Math.floor(Math.random() * this.pipeUp.height) - this.pipeUp.height
+    //         });
+    //     }
+    //         //this.deadBird();
+    //         //this.gameScore();
+    // }
+    //  }
+    
+     gameScore() {
+            localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
+    
+        if(this.pipe[this.i].x == 80) {
+            localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
+            this.scoreRec;
+            this.score++;
+    
+            this.score_audio.play();
+            }
+    
+            if (this.score > localStorage.getItem('record')){
+                this.scoreRec++;
+                this.scoreRec = this.score;
+                localStorage.setItem('record', this.scoreRec);
+            }
+     }
+    
+    deadBird() {
+        if(game.posX + game.sizeBird[0] >= game.pipe[game.i].x
+            && game.posX <= game.pipe[game.i].x + game.pipeUp.width
+            && (game.posY <= game.pipe[game.i].y + game.pipeUp.height
+            || game.posY + game.sizeBird[1] >= game.pipe[game.i].y + game.pipeUp.height + game.gap) || game.posY + game.sizeBird[1] >= game.canvas.height - game.fg.height) {
+         
+            game.drawTextGameOver();
+            game.drawTabScore();
+            game.drawButStart();
+            game.drawGround();
+    
+            this.end_audio.play();
+    
+            this.ctx.font = "bold 22px Verdana";
+            this.ctx.fillStyle = "#000";
+            this.ctx.fillText(this.score, 200, this.canvas.height - 282);
+            this.ctx.fillText(this.scoreRec, 200, this.canvas.height - 241);
+    
+            window.cancelAnimationFrame(this.myReq.bind(this));
+            }
+    }
+    
+    update() {
+        game.drawBack();
+        logic.drawPipe();
+        game.drawGround();
+        game.drawBird();
+        
+        this.myReq = window.requestAnimationFrame(this.update.bind(this));
+     }
+}
+
+let logic = new LogicAndScore();
+logic.control();
+logic.update();
+//logic.pipe();
+logic.drawPipe(); 
