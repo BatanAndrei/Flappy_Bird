@@ -247,7 +247,7 @@ drawPipe() {
         });
     }
         this.deadBird();
-        this.currentScore();
+        this.gameScore();
 }
 }
 
@@ -277,7 +277,7 @@ loadResources() {
     }
  }
 
- currentScore() {
+ gameScore() {
         localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
 
     if(this.pipe[this.i].x == 80) {
