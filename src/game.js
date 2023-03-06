@@ -183,7 +183,7 @@ drawBack() {
 }
 
 drawBird() {
-        //this.rotation = 30;
+        //this.rotation = 5;
 
         this.birdSource = {
                 x: 276,
@@ -198,10 +198,11 @@ drawBird() {
                 width: this.sizeBird[0],
                 height: this.sizeBird[1],
               };
-            //   this.ctx.save();
-            //   this.ctx.translate(this.posX + this.sizeBird[0] / 2, this.posX + this.sizeBird[1] / 2);
-            //   this.ctx.rotate(this.rotation * Math.PI / 180);
 
+            //   this.ctx.save();
+            //   this.ctx.translate(this.sizeBird[0] / 2, this.sizeBird[1] / 2);
+            //   this.ctx.rotate(this.rotation * Math.PI / 180);
+              
               this.ctx.drawImage(
                 this.bird,
             
@@ -215,6 +216,7 @@ drawBird() {
                 this.birdResult.width,
                 this.birdResult.height,
               );
+
               //this.ctx.restore();
 
               this.posY += this.grav;
