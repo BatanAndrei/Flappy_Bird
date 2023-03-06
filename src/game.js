@@ -106,7 +106,7 @@ class Game {
 
         this.myReq = myReq;
 
-        this.fly = fly;
+        this.fly_audio = fly;
         this.score_audio = score_audio;
         this.end_audio = end_audio;
 
@@ -160,8 +160,8 @@ canvasGame() {
     this.buttonStart = new Image();
     this.buttonStart.src = "assets/sprite.png";
 
-    this.fly = new Audio();
-    this.fly.src = "audio/fly.mp3";
+    this.fly_audio = new Audio();
+    this.fly_audio.src = "audio/fly.mp3";
 
     this.score_audio = new Audio();
     this.score_audio.src = "audio/score.mp3";
@@ -275,7 +275,7 @@ loadResources() {
  control() {
     game.canvas.onclick = function() {
         game.posY -=50;  
-        game.fly.play();
+        game.fly_audio.play();
     }
 
      window.addEventListener("keydown" ,moveUp);
