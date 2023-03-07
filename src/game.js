@@ -555,7 +555,7 @@ let logic = new LogicAndScore();
 logic.control();
 logic.update();
 //logic.pipe();
-logic.drawPipe(); 
+logic.appearancePipe(); 
 
 
 
@@ -566,10 +566,10 @@ class Resources extends DrawGame {
 
     loadResources() {
         window.onload = (event) => {
-            this.drawBack();
+            game.drawBack();
             logic.appearancePipe();
-            this.drawGround();
-            this.drawBird();
+            game.drawGround();
+            game.drawBird();
           };
      };
 }
