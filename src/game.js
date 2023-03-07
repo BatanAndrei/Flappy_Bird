@@ -463,7 +463,7 @@ class LogicAndScore extends DrawGame {
         }
      }
 
-     drawPipe() {
+     appearancePipe() {
        
             game.gap = 100;
             
@@ -504,7 +504,7 @@ class LogicAndScore extends DrawGame {
      gameScore() {
             localStorage.getItem('record') > 0 ? game.scoreRec = localStorage.getItem('record') : game.scoreRec = 0;
     
-        if(game.pipe[game.i].x == 80) {
+        if(game.pipe[game.i].x == 60) {
             localStorage.getItem('record') > 0 ? game.scoreRec = localStorage.getItem('record') : game.scoreRec = 0;
             game.scoreRec;
             game.score++;
@@ -543,7 +543,7 @@ class LogicAndScore extends DrawGame {
     
     update() {
         game.drawBack();
-        logic.drawPipe();
+        logic.appearancePipe();
         game.drawGround();
         game.drawBird();
         
@@ -560,14 +560,14 @@ logic.drawPipe();
 
 
 class Resources extends DrawGame {
-    constructor() {
-        super()
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation) {
+        super(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation)
     }
 
     loadResources() {
         window.onload = (event) => {
             this.drawBack();
-            logic.drawPipe();
+            logic.appearancePipe();
             this.drawGround();
             this.drawBird();
           };
