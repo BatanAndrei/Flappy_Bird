@@ -85,7 +85,7 @@
 
 // Начало работы с игрой - код с классом ES6
 
-class Game {
+class DrawGame {
     constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation){
         this.canvas = canvas;
         this.ctx = ctx;
@@ -265,14 +265,7 @@ drawGround() {
      this.ctx.drawImage(this.fg, 0, this.canvas.height - this.fg.height);
 }
 
-loadResources() {
-    window.onload = (event) => {
-        this.drawBack();
-        logic.drawPipe();
-        this.drawGround();
-        this.drawBird();
-      };
- };
+
 
 //  control() {
 //     game.canvas.onclick = function() {
@@ -441,18 +434,18 @@ loadResources() {
  }
 }
 
-let game = new Game();
+let game = new DrawGame();
 game.canvasGame();
 game.drawBack();
 //game.drawPipe();
 game.drawGround();
 game.drawBird();
-game.loadResources();
+//game.loadResources();
 // game.control();
 // game.update();
 
 
-class LogicAndScore extends Game {
+class LogicAndScore extends DrawGame {
      constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation) {
         super(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation)
      }
@@ -471,6 +464,7 @@ class LogicAndScore extends Game {
      }
 
      drawPipe() {
+       
             game.gap = 100;
             
             for( game.i = 0; game.i < game.pipe.length; game.i++) {
@@ -562,3 +556,23 @@ logic.control();
 logic.update();
 //logic.pipe();
 logic.drawPipe(); 
+
+
+
+class Resources extends DrawGame {
+    constructor() {
+        super()
+    }
+
+    loadResources() {
+        window.onload = (event) => {
+            this.drawBack();
+            logic.drawPipe();
+            this.drawGround();
+            this.drawBird();
+          };
+     };
+}
+
+let resources = new Resources();
+resources.loadResources();
