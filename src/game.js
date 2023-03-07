@@ -85,7 +85,7 @@
 
 // Начало работы с игрой - код с классом ES6
 
-class DrawGame {
+export default class DrawGame {
     constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation, medal, start_audio){
         this.canvas = canvas;
         this.ctx = ctx;
@@ -189,7 +189,7 @@ canvasGame() {
     this.posX = 50;
     this.posY = 180;
     this.grav = 1.5; 
-};
+}
 
 drawBack() {
     this.index += 0.3;
@@ -381,6 +381,7 @@ drawGround() {
       );
  }
 }
+
 
 let game = new DrawGame();
 game.canvasGame();
