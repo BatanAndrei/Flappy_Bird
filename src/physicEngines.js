@@ -9,7 +9,7 @@
 //         }
 //     }
 // }
-import  DrawGame from "src/game.js";
+import  DrawGame from "./game.js";
 new DrawGame();
 
 

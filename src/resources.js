@@ -24,7 +24,7 @@
 //     }
 // }
 
-import  DrawGame from "src/game.js";
+import  DrawGame from "./game.js";
 new DrawGame();
 
 class Resources extends DrawGame {
