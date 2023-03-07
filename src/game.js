@@ -86,7 +86,7 @@
 // Начало работы с игрой - код с классом ES6
 
 export default class DrawGame {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation, medal, start_audio){
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation, medal){
         this.canvas = canvas;
         this.ctx = ctx;
 
@@ -110,7 +110,6 @@ export default class DrawGame {
         this.fly_audio = fly;
         this.score_audio = score_audio;
         this.end_audio = end_audio;
-        this.start_audio = start_audio;
 
         this.score = score;
         this.scoreRec = scoreRec;
@@ -175,9 +174,6 @@ canvasGame() {
 
     this.end_audio = new Audio();;
     this.end_audio.src = "audio/gameover.mp3";
-
-    this.start_audio = new Audio();
-    this.start_audio.src = "assets/start.mp3";
 
     this.pipe[0] = {
         x: this.canvas.width,
