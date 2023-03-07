@@ -233,13 +233,6 @@ drawBird() {
 
               //this.ctx.restore();
 
-              this.posY += this.grav;
-
-              if(this.posY + this.sizeBird[1] <= this.canvas.height - 512){
-                
-                this.posY += 10;
-              }
-
               this.ctx.fillStyle = "#000";
               this.ctx.font = "24px Verdana";
               this.ctx.fillText("Score: " + this.score, 10, this.canvas.height - 20);
@@ -412,6 +405,15 @@ class LogicAndScore extends DrawGame {
         }
      }
 
+     birdNoSky() {
+        game.posY += game.grav;
+
+        if(game.posY + game.sizeBird[1] <= game.canvas.height - 512){
+          
+          game.posY += 10;
+        }
+     }
+
      appearancePipe() {
             game.gap = 100;
             
@@ -420,7 +422,6 @@ class LogicAndScore extends DrawGame {
                 game.ctx.drawImage(game.pipeBottom, game.pipe[game.i].x, game.pipe[game.i].y + game.pipeUp.height + game.gap);
                   
                 game.pipe[game.i].x--;
-                //console.log(game.pipe.length)
 
                 if(game.pipe[game.i].x == 100) {
                 game.pipe.push({
@@ -479,6 +480,7 @@ class LogicAndScore extends DrawGame {
         logic.appearancePipe();
         game.drawGround();
         game.drawBird();
+        logic.birdNoSky();
         
         this.myReq = window.requestAnimationFrame(this.update.bind(this));
      }
