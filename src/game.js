@@ -86,7 +86,7 @@
 // Начало работы с игрой - код с классом ES6
 
 class DrawGame {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation){
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation, medal){
         this.canvas = canvas;
         this.ctx = ctx;
 
@@ -101,6 +101,7 @@ class DrawGame {
         this.tableScore = tableScore;
         this.buttonStart = buttonStart;
         this.endGame = endGame;
+        this.medal = medal;
 
         this.rotation = rotation;
 
@@ -161,6 +162,9 @@ canvasGame() {
 
     this.buttonStart = new Image();
     this.buttonStart.src = "assets/sprite.png";
+
+    this.medal = new Image();
+    this.medal.src = "assets/sprite.png";
 
     this.fly_audio = new Audio();
     this.fly_audio.src = "audio/fly.mp3";
@@ -241,94 +245,11 @@ drawBird() {
               this.ctx.fillText("Score: " + this.score, 10, this.canvas.height - 20);
     }
 
-// drawPipe() {
-//     this.gap = 100;
-    
-//     for( this.i = 0; this.i < this.pipe.length; this.i++) {
-//         this.ctx.drawImage(this.pipeUp, this.pipe[this.i].x, this.pipe[this.i].y);
-//         this.ctx.drawImage(this.pipeBottom, this.pipe[this.i].x, this.pipe[this.i].y + this.pipeUp.height + this.gap);
-          
-//         this.pipe[this.i].x--;
-        
-//         if(this.pipe[this.i].x == 100) {
-//         this.pipe.push({
-//         x : this.canvas.width,
-//         y : Math.floor(Math.random() * this.pipeUp.height) - this.pipeUp.height
-//         });
-//     }
-//         //this.deadBird();
-//         //this.gameScore();
-// }
-// }
 
 drawGround() {
      this.ctx.drawImage(this.fg, 0, this.canvas.height - this.fg.height);
 }
 
-
-
-//  control() {
-//     game.canvas.onclick = function() {
-//         game.posY -=50;  
-//         game.fly_audio.play();
-//     }
-
-//      window.addEventListener("keydown" ,moveUp);
-//       function moveUp() {
-//         game.posY -=50;  
-//         game.fly.play();
-//     }
-//  }
-
-//  gameScore() {
-//         localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
-
-//     if(this.pipe[this.i].x == 80) {
-//         localStorage.getItem('record') > 0 ? this.scoreRec = localStorage.getItem('record') : this.scoreRec = 0;
-//         this.scoreRec;
-//         this.score++;
-
-//         this.score_audio.play();
-//         }
-
-//         if (this.score > localStorage.getItem('record')){
-//             this.scoreRec++;
-//             this.scoreRec = this.score;
-//             localStorage.setItem('record', this.scoreRec);
-//         }
-//  }
-
-// deadBird() {
-//     if(this.posX + this.sizeBird[0] >= this.pipe[this.i].x
-//         && this.posX <= this.pipe[this.i].x + this.pipeUp.width
-//         && (this.posY <= this.pipe[this.i].y + this.pipeUp.height
-//         || this.posY + this.sizeBird[1] >= this.pipe[this.i].y + this.pipeUp.height + this.gap) || this.posY + this.sizeBird[1] >= this.canvas.height - this.fg.height) {
-     
-//         this.drawTextGameOver();
-//         this.drawTabScore();
-//         this.drawButStart();
-//         this.drawGround();
-
-//         this.end_audio.play();
-
-//         this.ctx.font = "bold 22px Verdana";
-//         this.ctx.fillStyle = "#000";
-//         this.ctx.fillText(this.score, 200, this.canvas.height - 282);
-//         this.ctx.fillText(this.scoreRec, 200, this.canvas.height - 241);
-
-//         window.cancelAnimationFrame(this.myReq.bind(this));
-//         }
-// }
-
-// update() {
-//     this.drawBack();
-//     this.drawPipe();
-//     this.drawGround();
-//     this.drawBird();
-    
-//     this.myReq = window.requestAnimationFrame(this.update.bind(this));
-//  }
- 
  drawTextGameOver() {
     this.endGameSource = {
         x: 194,
@@ -432,17 +353,45 @@ drawGround() {
          }
         }
  }
+
+ drawMedal() {
+    this.medalSource = {
+        x: 359,
+        y: 157,
+        width: 44,
+        height: 44,
+      };
+    
+     this.medalResult = {
+        x: 50,
+        y: 220,
+        width: 44,
+        height: 44,
+      };
+      
+      this.ctx.drawImage(
+        this.medal,
+    
+        this.medalSource.x,
+        this.medalSource.y,
+        this.medalSource.width,
+        this.medalSource.height,
+    
+        this.medalResult.x,
+        this.medalResult.y,
+        this.medalResult.width,
+        this.medalResult.height
+      );
+ }
 }
 
 let game = new DrawGame();
 game.canvasGame();
 game.drawBack();
-//game.drawPipe();
 game.drawGround();
 game.drawBird();
-//game.loadResources();
-// game.control();
-// game.update();
+game.drawMedal();
+
 
 
 class LogicAndScore extends DrawGame {
@@ -464,7 +413,6 @@ class LogicAndScore extends DrawGame {
      }
 
      appearancePipe() {
-       
             game.gap = 100;
             
             for( game.i = 0; game.i < game.pipe.length; game.i++) {
@@ -485,22 +433,6 @@ class LogicAndScore extends DrawGame {
         }
         }
 
-    //  pipe() {
-    //     for( this.i = 0; this.i < this.pipe.length; this.i++) {
-    //         game.drawPipe()
-    //         this.pipe[this.i].x--;
-        
-    //         if(this.pipe[this.i].x == 100) {
-    //         this.pipe.push({
-    //         x : this.canvas.width,
-    //         y : Math.floor(Math.random() * this.pipeUp.height) - this.pipeUp.height
-    //         });
-    //     }
-    //         //this.deadBird();
-    //         //this.gameScore();
-    // }
-    //  }
-    
      gameScore() {
             localStorage.getItem('record') > 0 ? game.scoreRec = localStorage.getItem('record') : game.scoreRec = 0;
     
@@ -529,6 +461,7 @@ class LogicAndScore extends DrawGame {
             game.drawTabScore();
             game.drawButStart();
             game.drawGround();
+            game.drawMedal();
     
             game.end_audio.play();
     
@@ -554,7 +487,6 @@ class LogicAndScore extends DrawGame {
 let logic = new LogicAndScore();
 logic.control();
 logic.update();
-//logic.pipe();
 logic.appearancePipe(); 
 
 
