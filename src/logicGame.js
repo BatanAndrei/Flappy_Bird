@@ -1,14 +1,3 @@
-// class PhysicEngine {
-//     constructor(gravity) {
-//         this._gravity = gravity;
-//     }
-//     update(entity, delta){
-//         if(entity.falling){
-//       entity.speed += this._gravity * delta;
-//       entity.y += this.speed * delta;
-//         }
-//     }
-// }
 
 class LogicAndScore extends DrawGame {
     constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY) {
