@@ -9,9 +9,6 @@
 //         }
 //     }
 // }
-import  DrawGame from "./game.js";
-new DrawGame();
-
 
 class LogicAndScore extends DrawGame {
     constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation) {
@@ -28,7 +25,7 @@ class LogicAndScore extends DrawGame {
         window.addEventListener("keydown" ,moveUp);
          function moveUp() {
            game.posY -=50;  
-           game.fly.play();
+           game.fly_audio.play();
        }
     }
 
