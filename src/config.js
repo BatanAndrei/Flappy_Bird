@@ -92,7 +92,4 @@ constructor(canvas, ctx, bg, bird, fg, pipeUp, pipeBottom, birdSource, birdResul
 
     this.i = i;
 }
-canvasDraw() {
-   
-}
 }
