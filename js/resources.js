@@ -14,5 +14,6 @@ class Resources extends DrawGame {
      };
 }
 
+
 let resources = new Resources();
 resources.loadResources();

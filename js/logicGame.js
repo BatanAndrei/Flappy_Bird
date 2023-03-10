@@ -106,6 +106,7 @@ class LogicAndScore extends DrawGame {
     }
 }
 
+
 let logic = new LogicAndScore();
 logic.control();
 logic.update();
