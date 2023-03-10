@@ -88,7 +88,7 @@
  class DrawGame {
     constructor(){
         this.config = new Config();
-
+        
         this.speedBack = 3.1;
         this.index = 0;
         
