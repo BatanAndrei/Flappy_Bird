@@ -86,53 +86,16 @@
 // Начало работы с игрой - код с классом ES6
 
  class DrawGame {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation, medal){
-        this.canvas = canvas;
-        this.ctx = ctx;
+    constructor(){
+        this.config = new Config();
 
-        this.bg = bg;
-        this.bird = bird;
-        this.fg = fg;
-        this.pipeUp = pipeUp;
-        this.pipeBottom = pipeBottom;
-        this.birdSource = birdSource;
-        this.birdResult = birdResult;
-        this.birdD = birdD;
-        this.tableScore = tableScore;
-        this.buttonStart = buttonStart;
-        this.endGame = endGame;
-        this.medal = medal;
-
-        this.rotation = rotation;
-
-        this.myReq = myReq;
-
-        this.fly_audio = fly;
-        this.score_audio = score_audio;
-        this.end_audio = end_audio;
-
-        this.score = score;
-        this.scoreRec = scoreRec;
-       
-        this.sizeBird = sizeBird;
         this.speedBack = 3.1;
         this.index = 0;
-        this.backgroudX = backgroudX;
-
-        this.gap = gap;
-        this.posX = posX;
-        this.posY = posY;
-
+        
         this.pipe = [];
-        this.i = i;
-
-        this.grav = grav;
-
-        this.mouseX = mouseX;
-        this.mouseY = mouseY;
     }
 
-canvasGame() {
+  canvasContext() {
     this.canvas = document.getElementById("canvas");
     this.ctx = this.canvas.getContext("2d");
 
@@ -197,8 +160,6 @@ drawBack() {
 }
 
 drawBird() {
-        //this.rotation = 5;
-
         this.birdSource = {
                 x: 276,
                 y: 114 + (Math.floor((this.index % 9) / 3) * this.sizeBird[1]),
@@ -212,10 +173,6 @@ drawBird() {
                 width: this.sizeBird[0],
                 height: this.sizeBird[1],
               };
-
-            //   this.ctx.save();
-            //   this.ctx.translate(this.sizeBird[0] / 2, this.sizeBird[1] / 2);
-            //   this.ctx.rotate(this.rotation * Math.PI / 180);
               
               this.ctx.drawImage(
                 this.bird,
@@ -230,12 +187,6 @@ drawBird() {
                 this.birdResult.width,
                 this.birdResult.height,
               );
-
-              //this.ctx.restore();
-
-              this.ctx.fillStyle = "#000";
-              this.ctx.font = "24px Verdana";
-              this.ctx.fillText("Score: " + this.score, 10, this.canvas.height - 20);
     }
 
 
@@ -380,7 +331,7 @@ drawGround() {
 
 
 let game = new DrawGame();
-game.canvasGame();
+game.canvasContext();
 game.drawBack();
 game.drawGround();
 game.drawBird();

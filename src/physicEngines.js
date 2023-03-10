@@ -11,8 +11,8 @@
 // }
 
 class LogicAndScore extends DrawGame {
-    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation) {
-       super(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY, birdD, rotation)
+    constructor(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY) {
+       super(canvas, ctx, bird, bg, fg, pipeUp, pipeBottom, backgroudX, gap, i, birdSource, birdResult, sizeBird, posX, posY, grav, myReq, endGame, tableScore, buttonStart, fly, score_audio, score, end_audio, scoreRec, mouseX, mouseY)
        
     }
 
@@ -44,7 +44,7 @@ class LogicAndScore extends DrawGame {
            for( game.i = 0; game.i < game.pipe.length; game.i++) {
                game.ctx.drawImage(game.pipeUp, game.pipe[game.i].x, game.pipe[game.i].y);
                game.ctx.drawImage(game.pipeBottom, game.pipe[game.i].x, game.pipe[game.i].y + game.pipeUp.height + game.gap);
-                 
+               
                game.pipe[game.i].x--;
 
                if(game.pipe[game.i].x == 100) {
@@ -56,6 +56,12 @@ class LogicAndScore extends DrawGame {
                logic.deadBird();
                logic.gameScore();
        }
+       }
+
+    currentScore() {
+        game.ctx.fillStyle = "#000";
+        game.ctx.font = "24px Verdana";
+        game.ctx.fillText("Score: " + game.score, 10, game.canvas.height - 20);
        }
 
     gameScore() {
@@ -74,8 +80,9 @@ class LogicAndScore extends DrawGame {
                game.scoreRec = game.score;
                localStorage.setItem('record', game.scoreRec);
            }
+           
     }
-   
+
    deadBird() {
        if(game.posX + game.sizeBird[0] >= game.pipe[game.i].x
            && game.posX <= game.pipe[game.i].x + game.pipeUp.width
@@ -94,7 +101,7 @@ class LogicAndScore extends DrawGame {
            game.ctx.fillStyle = "#000";
            game.ctx.fillText(game.score, 200, game.canvas.height - 282);
            game.ctx.fillText(game.scoreRec, 200, game.canvas.height - 241);
-   
+
            window.cancelAnimationFrame(this.myReq.bind(this));
            }
    }
@@ -105,6 +112,7 @@ class LogicAndScore extends DrawGame {
        game.drawGround();
        game.drawBird();
        logic.birdNoSky();
+       logic.currentScore();
        
        this.myReq = window.requestAnimationFrame(this.update.bind(this));
     }
